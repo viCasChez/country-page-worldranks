@@ -1,0 +1,12 @@
+section.cpw-sort {
+  select {
+    border: 1px solid var(--primary-grey);
+    display: block;
+    width: 100%;
+    background-color: var(--background-grey);
+    border-radius: 8px;
+    padding: 4px 8px;
+    color: var(--primary-grey);
+    text-transform: capitalize;
+  }
+}

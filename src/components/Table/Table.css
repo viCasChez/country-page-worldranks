@@ -1,0 +1,38 @@
+.cpw-table {
+  display: grid;
+  grid-template-columns: 50px 2fr 100px 80px; /* Columnas que se adaptan automáticamente */
+  gap: 8px; /* Espaciado entre elementos */
+  align-items: center; /* Alineación vertical */
+  padding: 4px;
+  &.header {
+    border-bottom: 1px solid var(--primary-grey);
+  }
+  div {
+    white-space: nowrap; /* Evita que el texto se corte en múltiples líneas */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Agrega "..." si el contenido supera el ancho */
+  }
+  &.body {
+    div {
+      color: var(--white);
+    }
+    .skeleton-box {
+      background-color: var(--primary-grey);
+      border-radius: 4px;
+      height: 8px;
+      width: 80%;
+      &.cpw-table_flags {
+        width: 40px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+
+
+@media (min-width: 768px) {
+  .cpw-table {
+    grid-template-columns: 50px 2fr 1fr 1fr 80px; /* Columnas que se adaptan automáticamente */
+  }
+}

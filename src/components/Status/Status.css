@@ -1,0 +1,33 @@
+.cpw-status {
+  div {
+    color: var(--white);
+  }
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--primary-grey);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    &:checked {
+      background-color: var(--primary-blue); /* Azul */
+      border-color: var(--primary-blue); /* Azul */
+      &::after {
+        content: '✓';
+        position: absolute;
+        top: -2px;
+        left: 2px;
+        color: var(--white);
+        font-size: 15px;
+      }
+    }
+  }
+  
+}

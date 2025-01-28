@@ -1,0 +1,27 @@
+:root {
+  --search-icon-url: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4IiBzdHJva2U9IiNhYWEiIHN0cm9rZS13aWR0aD0iMiIvPjxsaW5lIHgxPSIxNiIgeTE9IjE2IiB4Mj0iMjEiIHkyPSIyMSIgc3Ryb2tlPSIjYWFhIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+}
+
+search.cpw-search {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 8px;
+    align-items: center;
+    p {
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px 4px 8px 24px;
+      border: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: var(--secundary-grey);
+      background-image: var(--search-icon-url);
+      background-size: 16px;
+      background-repeat: no-repeat;
+      background-position: left 4px center;
+      font-size: .7rem;
+      color: var(--white);
+    }
+}

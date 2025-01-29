@@ -2,14 +2,13 @@ import React from 'react';
 
 import cls from './Search.module.css';
 
-export const Search = ({founds = 234}) => {
-
-  const txtFound = `${founds} ${founds === 0 || founds > 1 ? 'countries' : 'country'}`
+export const Search = ({ numResults = 0 }) => {
+  const txtFound = `Found ${numResults} ${numResults === 1 ? 'country' : 'countries'}`;
 
   return (
-    <search className={cls.cpw_search}>
-      <p>Found {txtFound}</p>
+    <section className={cls.cpw_search}>
+      <p>{txtFound}</p>
       <input type="" placeholder="Search by Name, Region, Subregion" />
-    </search>
+    </section>
   )
 }

@@ -34,7 +34,7 @@ export const Region = () => {
         {allRegions.map((region, index) => (
             <span 
               key={index}
-              className={regions.includes(region) ? cls.selected : ''}
+              className={regions.includes(region) ? cls.selected : null}
               onClick={handleRegions}
             >
               {region}

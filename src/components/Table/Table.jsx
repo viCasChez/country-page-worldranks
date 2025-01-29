@@ -3,29 +3,9 @@ import { isMobileDevice } from '../../utils/utils';
 
 import cls from './Table.module.css';
 
-export const Table = () => {
+export const Table = ({ countries = [] }) => {
 
-  const countries = [{
-    flag: '🇨🇳',
-    name: 'China',
-    population: 140211200,
-    area: 9706961,
-    region: 'Asia',
-  }, {
-    flag: '🇮🇳',
-    name: 'India',
-    population: 14393237776,
-    area: 3287590,
-    region: 'Asia',
-  }, {
-    flag: '🇺🇸',
-    name: 'United State',
-    population: 329484123,
-    area: 9372619,
-    region: 'Americas',
-  }];
-
-  const skeletonNumbers = 10 - countries.length;
+  const skeletonNumbers = Math.max(10 - countries.length, 0);
 
   // Estado para detectar si es un dispositivo móvil
   const [isMobile, setIsMobile] = useState(isMobileDevice());
@@ -53,16 +33,18 @@ export const Table = () => {
         <div>Area (km2)</div>
         {!isMobile ? <div>Region</div> : ''}
       </section>
-      {countries.map(({flag, name, population, area, region}, index) => (
+      {countries.map((country, index) => (
         <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
-          <div className={cls.cpw_table_flags}>{flag}</div>
-          <div>{name}</div>
-          <div>{population}</div>
-          <div>{area}</div>
-          {!isMobile ? <div>{region}</div> : ''}
+          <div className={cls.cpw_table_flags}>
+            <img src={country.flags.png} />
+          </div>
+          <div>{country.translations.spa.official || country.name.common}</div>
+          <div>{country.population}</div>
+          <div>{country.area}</div>
+          {!isMobile ? <div>{country.region}</div> : ''}
         </section>
       ))}
-      {Array(skeletonNumbers).fill(null).map((_, index) => (
+      {Array.from({ length: skeletonNumbers }, (_, index) => (
         <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
           <div className={`${cls.cpw_table_flags} ${cls.skeleton_box}`}></div>
           <div className={`${cls.skeleton_box}`}></div>

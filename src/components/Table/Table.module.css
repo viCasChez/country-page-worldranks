@@ -15,21 +15,33 @@
   &.body {
     div {
       color: var(--white);
-    }
-    .skeleton_box {
-      background-color: var(--primary-grey);
-      border-radius: 4px;
-      height: 8px;
-      width: 80%;
       &.cpw_table_flags {
         width: 40px;
         height: 24px;
+        img {
+          width: 100%;
+        }
       }
+    }
+    .skeleton_box {
+      background: linear-gradient(90deg, var(--primary-grey) 25%, var(--secundary-grey) 50%, var(--primary-grey) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite linear;
+      border-radius: 4px;
+      height: 8px;
+      width: 80%;
     }
   }
 }
 
-
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
 
 @media (min-width: 768px) {
   .cpw_table {

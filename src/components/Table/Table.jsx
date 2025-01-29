@@ -63,7 +63,7 @@ export const Table = () => {
         </section>
       ))}
       {Array(skeletonNumbers).fill(null).map((_, index) => (
-        <section key={index} className={`${cls.cpw_table} ${cls.body} ${cls.skeleton}`}>
+        <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
           <div className={`${cls.cpw_table_flags} ${cls.skeleton_box}`}></div>
           <div className={`${cls.skeleton_box}`}></div>
           <div className={`${cls.skeleton_box}`}></div>

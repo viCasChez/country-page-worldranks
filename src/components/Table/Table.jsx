@@ -3,7 +3,7 @@ import { isMobileDevice } from '../../utils/utils';
 
 import cls from './Table.module.css';
 
-export const Table = ({ countries = [] }) => {
+export const Table = ({ countries = [], isLoading, error }) => {
 
   const skeletonNumbers = Math.max(10 - countries.length, 0);
 
@@ -33,7 +33,20 @@ export const Table = ({ countries = [] }) => {
         <div>Area (km2)</div>
         {!isMobile ? <div>Region</div> : ''}
       </section>
-      {countries.map((country, index) => (
+
+      {isLoading && Array.from({ length: skeletonNumbers }, (_, index) => (
+        <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
+          <div className={`${cls.cpw_table_flags} ${cls.skeleton_box}`}></div>
+          <div className={`${cls.skeleton_box}`}></div>
+          <div className={`${cls.skeleton_box}`}></div>
+          <div className={`${cls.skeleton_box}`}></div>
+          {!isMobile && <div className={`${cls.skeleton_box}`}></div>}
+        </section>
+      ))}
+
+      {error && <p className="error">{error}</p>}
+
+      {!isLoading && countries.map((country, index) => (
         <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
           <div className={cls.cpw_table_flags}>
             <img src={country.flags.png} />
@@ -44,16 +57,7 @@ export const Table = ({ countries = [] }) => {
           {!isMobile ? <div>{country.region}</div> : ''}
         </section>
       ))}
-      {Array.from({ length: skeletonNumbers }, (_, index) => (
-        <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
-          <div className={`${cls.cpw_table_flags} ${cls.skeleton_box}`}></div>
-          <div className={`${cls.skeleton_box}`}></div>
-          <div className={`${cls.skeleton_box}`}></div>
-          <div className={`${cls.skeleton_box}`}></div>
-          {!isMobile && <div className={`${cls.skeleton_box}`}></div>}
-        </section>
-      ))}
     </>
-);
+  );
 
 }

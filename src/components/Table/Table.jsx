@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isMobileDevice } from '../../utils/utils';
 
-import './Table.css';
+import cls from './Table.module.css';
 
 export const Table = () => {
 
@@ -46,7 +46,7 @@ export const Table = () => {
 
   return (
     <>
-      <section className="cpw-table header">
+      <section className={`${cls.cpw_table} ${cls.header}`}>
         <div>Flag</div>
         <div>Name</div>
         <div>Population</div>
@@ -54,21 +54,21 @@ export const Table = () => {
         {!isMobile ? <div>Region</div> : ''}
       </section>
       {countries.map(({flag, name, population, area, region}, index) => (
-        <section key={index} className="cpw-table body">
-          <div className="cpw-table_flags">{flag}</div>
-          <div className="cpw-table_name">{name}</div>
-          <div className="cpw-table_population">{population}</div>
-          <div className="cpw-table_area">{area}</div>
-          {!isMobile ? <div className="cpw-table_region">{region}</div> : ''}
+        <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
+          <div className={cls.cpw_table_flags}>{flag}</div>
+          <div>{name}</div>
+          <div>{population}</div>
+          <div>{area}</div>
+          {!isMobile ? <div>{region}</div> : ''}
         </section>
       ))}
       {Array(skeletonNumbers).fill(null).map((_, index) => (
-        <section key={index} className="cpw-table body skeleton">
-          <div className="cpw-table_flags skeleton-box"></div>
-          <div className="cpw-table_name skeleton-box"></div>
-          <div className="cpw-table_population skeleton-box"></div>
-          <div className="cpw-table_area skeleton-box"></div>
-          {!isMobile && <div className="cpw-table_region skeleton-box"></div>}
+        <section key={index} className={`${cls.cpw_table} ${cls.body} ${cls.skeleton}`}>
+          <div className={`${cls.cpw_table_flags} ${cls.skeleton_box}`}></div>
+          <div className={`${cls.skeleton_box}`}></div>
+          <div className={`${cls.skeleton_box}`}></div>
+          <div className={`${cls.skeleton_box}`}></div>
+          {!isMobile && <div className={`${cls.skeleton_box}`}></div>}
         </section>
       ))}
     </>

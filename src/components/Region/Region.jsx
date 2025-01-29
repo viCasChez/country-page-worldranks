@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './Region.css';
+import cls from './Region.module.css';
 
 export const Region = () => {
 
@@ -28,13 +28,13 @@ export const Region = () => {
   }
 
   return(
-    <section className='cpw-region'>
+    <section className={cls.cpw_region}>
       <p>Region</p>
-      <div className="region-filters">
+      <div className={cls.region_filters}>
         {allRegions.map((region, index) => (
             <span 
               key={index}
-              className={regions.includes(region) ? 'selected' : ''}
+              className={regions.includes(region) ? cls.selected : ''}
               onClick={handleRegions}
             >
               {region}

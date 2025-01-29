@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import './SortBy.css';
+import cls from './SortBy.module.css';
 
 export const SortBy = () => {
 
@@ -15,7 +15,7 @@ export const SortBy = () => {
   }
 
   return (
-    <section className="cpw-sort">
+    <section className={cls.cpw_sort}>
       <p>Sort by</p>
       <select 
         value={sortSelected}

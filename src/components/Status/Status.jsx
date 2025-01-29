@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import './Status.css'
+import cls from './Status.module.css'
 
 export const Status = () => {
 
@@ -25,7 +25,7 @@ export const Status = () => {
   }
 
   return (
-    <section className="cpw-status">
+    <section className={cls.cpw_status}>
       <p>Status</p>
       <div><input type="checkbox" name="unitedNation" onChange={handleStatus} /> Member of the United Nations</div>
       <div><input type="checkbox" name="independent" onChange={handleStatus} /> Independent</div>

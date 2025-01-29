@@ -1,12 +1,13 @@
 import React from 'react';
 
-import './Header.css';
+// CSS Modules
+import cls from './Header.module.css';
 
 export const Header = () => {
 
   return (
     <>
-      <header className='cpw-header'>
+      <header className={cls.cpw_header}>
         <h1>World <span>Ranks</span></h1>
       </header>
     </>

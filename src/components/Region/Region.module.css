@@ -1,5 +1,5 @@
-section.cpw-region {
-  .region-filters {
+section.cpw_region {
+  .region_filters {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;

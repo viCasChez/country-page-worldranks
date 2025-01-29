@@ -38,7 +38,7 @@ body {
 
 @media (min-width: 768px) {
   body {
-    header.cpw-header {
+    header.cpw_header {
       position: absolute;
       top: 0;
       left: 0;
@@ -59,7 +59,7 @@ body {
       background-color: var(--background-grey);
       box-shadow: 0px 1px 2px 0px;
     }
-    .filters-results{
+    .filters_results{
       display: grid;
       grid-template-columns: 210px 1fr;
       gap: 24px;

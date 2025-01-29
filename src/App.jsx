@@ -10,13 +10,13 @@ function App() {
       <Header />
       <main>
         <Search />
-        <div className="filters-results">
-          <div className="filter-options">
+        <div className="filters_results">
+          <div>
             <SortBy />
             <Region />
             <Status />
           </div>
-          <div className="list-results">
+          <div>
             <Table />
           </div>
         </div>

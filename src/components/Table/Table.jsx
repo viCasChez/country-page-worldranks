@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { isMobileDevice } from '../../utils/utils';
 
 import cls from './Table.module.css';
+import { TableLoading } from './TableLoading';
+import { TableHeader } from './TableHeader';
+import { TableCountries } from './TableCountries';
 
 export const Table = ({ countries = [], isLoading, error }) => {
 
@@ -26,37 +29,10 @@ export const Table = ({ countries = [], isLoading, error }) => {
 
   return (
     <>
-      <section className={`${cls.cpw_table} ${cls.header}`}>
-        <div>Flag</div>
-        <div>Name</div>
-        <div>Population</div>
-        <div>Area (km2)</div>
-        {!isMobile ? <div>Region</div> : ''}
-      </section>
-
-      {isLoading && Array.from({ length: skeletonNumbers }, (_, index) => (
-        <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
-          <div className={`${cls.cpw_table_flags} ${cls.skeleton_box}`}></div>
-          <div className={`${cls.skeleton_box}`}></div>
-          <div className={`${cls.skeleton_box}`}></div>
-          <div className={`${cls.skeleton_box}`}></div>
-          {!isMobile && <div className={`${cls.skeleton_box}`}></div>}
-        </section>
-      ))}
-
-      {error && <p className="error">{error}</p>}
-
-      {!isLoading && countries.map((country, index) => (
-        <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
-          <div className={cls.cpw_table_flags}>
-            <img src={country.flags.png} />
-          </div>
-          <div>{country.translations.spa.official || country.name.common}</div>
-          <div>{country.population}</div>
-          <div>{country.area}</div>
-          {!isMobile ? <div>{country.region}</div> : ''}
-        </section>
-      ))}
+      <TableHeader />
+      {error && <p className={`${cls.error}`}>Error: {error}</p> }
+      {isLoading && <TableLoading skeletonNumbers={skeletonNumbers} isMobile={isMobile} />}
+      {!isLoading && !error && <TableCountries countries={countries} isMobile={isMobile} />}
     </>
   );
 

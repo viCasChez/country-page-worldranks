@@ -20,6 +20,7 @@
         height: 24px;
         img {
           width: 100%;
+          height: 24px;
         }
       }
     }
@@ -32,6 +33,10 @@
       width: 80%;
     }
   }
+}
+
+.error {
+  color: var(--error);
 }
 
 @keyframes skeleton-loading {

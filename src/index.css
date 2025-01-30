@@ -4,6 +4,7 @@
   --primary-grey: #666;
   --secundary-grey: #333;
   --background-grey: #1c1d1f;
+  --error: #900;
 }
 
 :root {

@@ -39,7 +39,7 @@ const useCountryStore = create((set, get) => ({
     }
 
     set({
-      filteredCountries: get()._sortData(filtered, sortSelected),
+      filteredCountries: get()._sortData(get()._mapToListCountries(filtered), sortSelected),
       numResults: filtered.length,
     });
   },

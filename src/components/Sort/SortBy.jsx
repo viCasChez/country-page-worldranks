@@ -1,26 +1,15 @@
-import React, { useState } from "react";
-
+import React from 'react';
+import useCountryStore from '../../store/store';
 import cls from './SortBy.module.css';
 
 export const SortBy = () => {
-
-  const sortDefault = 'population';
-
-  const [ sortSelected, setSortSelected ] = useState(sortDefault);
+  const { sortBy, sortSelected } = useCountryStore();
   const options = ['name', 'population', 'area', 'region'];
-
-  const onChangeSorting = (event) => {
-    const { target } = event;
-    setSortSelected(target.value);
-  }
 
   return (
     <section className={cls.cpw_sort}>
       <p>Sort by</p>
-      <select 
-        value={sortSelected}
-        onChange={onChangeSorting}
-      >
+      <select value={sortSelected} onChange={(e) => sortBy(e.target.value)}>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
@@ -29,5 +18,4 @@ export const SortBy = () => {
       </select>
     </section>
   );
-
-}
+};

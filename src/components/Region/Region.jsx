@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import useCountryStore from '../../store/store';
 
 import cls from './Region.module.css';
 
 export const Region = () => {
-
-  const allRegions = ['Americas', 'Antartic', 'Africa', 'Asia', 'Europe', 'Oceania'];
+  const { allRegions, filterByRegion } = useCountryStore();
 
   const [ regions, setRegions ] = useState([]);
 
@@ -20,11 +20,15 @@ export const Region = () => {
   };
 
   const addRegion = (selectedRegion) => {
-    return [...regions, selectedRegion];
+    const newRegions = [...regions, selectedRegion];
+    filterByRegion(newRegions);
+    return newRegions;
   }
 
   const removeRegion = (selectedRegion) => {
-    return regions.filter(region => region !== selectedRegion);
+    const newRegions = regions.filter(region => region !== selectedRegion);
+    filterByRegion(newRegions);
+    return newRegions;
   }
 
   return(

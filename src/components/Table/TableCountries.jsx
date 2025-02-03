@@ -1,22 +1,24 @@
 import React from "react";
+import useCountryStore from '../../store/store';
 import cls from './Table.module.css';
 
-export const TableCountries = ({ countries, isMobile }) => {
+export const TableCountries = () => {
+  const { filteredCountries } = useCountryStore();
 
   return (
     <>
-      {countries.map((country, index) => (
-      <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
-        <div className={cls.cpw_table_flags}>
-          <img src={country.flags.png} />
-        </div>
-        <div>{country.translations.spa.official || country.name.common}</div>
-        <div>{country.population}</div>
-        <div>{country.area}</div>
-        {!isMobile ? <div>{country.region}</div> : ''}
-      </section>
+      {!filteredCountries.length && <p className={`${cls.error}`}>Sin resultados...</p> }
+      {filteredCountries.map(({flag, name, population, area, region}, index) => (
+        <section key={index} className={`${cls.cpw_table} ${cls.body}`}>
+          <div className={cls.cpw_table_flags}>
+            <img src={flag} alt={name} />
+          </div>
+          <div>{name}</div>
+          <div>{population}</div>
+          <div>{area}</div>
+          <div>{region}</div>
+        </section>
       ))}
     </>
   );
-
-}
+};

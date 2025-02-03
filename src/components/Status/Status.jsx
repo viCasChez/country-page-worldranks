@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import useCountryStore from '../../store/store';
 
 import cls from './Status.module.css'
 
 export const Status = () => {
+  const { filterByStatus } = useCountryStore();
 
   const [ status, setStatus ] = useState([]);
 
@@ -17,11 +19,15 @@ export const Status = () => {
   }
 
   const addStatus = (name) => {
-    return [...status, name];
+    const newStatus = [...status, name];
+    filterByStatus(newStatus);
+    return newStatus
   }
 
   const removeStatus = (name) => {
-    return status.filter(state => state !== name);
+    const newStatus = status.filter(state => state !== name);
+    filterByStatus(newStatus);
+    return newStatus;
   }
 
   return (

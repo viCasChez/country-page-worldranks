@@ -4,6 +4,10 @@
   gap: 8px; /* Espaciado entre elementos */
   align-items: center; /* Alineación vertical */
   padding: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--secundary-grey);
+  }
   &.header {
     border-bottom: 1px solid var(--primary-grey);
   }
@@ -35,6 +39,39 @@
   }
 }
 
+.table_pagination {
+  text-align: center;
+  button {
+    background-color: var(--background-grey);
+    border: 1px solid var(--primary-grey);
+    color: var(--white);
+    border-radius: 4px;
+    margin: 0 1px;
+    min-width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: background-color .5s ease-in-out, color .5s ease-in-out;
+    span {
+      display: none;
+    }
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--secundary-grey);
+      border-color: var(--secundary-grey);
+      transition: background-color .5s ease-in-out, color .5s ease-in-out;
+    }
+    &.btn_page {
+      transition: background-color .5s ease-in-out;
+      margin: 0 4px;
+      &.active {
+        background-color: var(--primary-grey);
+        transition: background-color .5s ease-in-out;
+      }
+    }
+  }
+  .items_of_total { margin-left: 16px;}
+}
+
 .error {
   color: var(--error);
 }
@@ -52,4 +89,11 @@
   .cpw_table {
     grid-template-columns: 50px 2fr 1fr 1fr 80px; /* Columnas que se adaptan automáticamente */
   }
+  .table_pagination {
+    button {
+      span {
+        display: inline;
+      }
+    }
+  }  
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import useCountryStore from '../store/store';
 import { Header, Search, SortBy, Region, Status, Table } from './';
 
-export function CountryRanking() {
+export const CountryRanking = () => {
   const { setCountries, setError, isLoading, error, filteredCountries } = useCountryStore();
 
   useEffect(() => {

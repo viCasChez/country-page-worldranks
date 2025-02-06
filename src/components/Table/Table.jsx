@@ -5,10 +5,13 @@ import cls from './Table.module.css';
 import { TableLoading } from './TableLoading';
 import { TableHeader } from './TableHeader';
 import { TableCountries } from './TableCountries';
+import { TablePagination } from './TablePagination';
 
 export const Table = ({ countries = [], isLoading, error }) => {
 
   const skeletonNumbers = Math.max(10 - countries.length, 0);
+  const itemsPage = countries.length;
+  const itemsPerPage = 50;
 
   // Estado para detectar si es un dispositivo móvil
   const [isMobile, setIsMobile] = useState(isMobileDevice());
@@ -32,7 +35,12 @@ export const Table = ({ countries = [], isLoading, error }) => {
       <TableHeader />
       {error && <p className={`${cls.error}`}>Error: {error}</p> }
       {isLoading && <TableLoading skeletonNumbers={skeletonNumbers} isMobile={isMobile} />}
-      {!isLoading && !error && <TableCountries countries={countries} isMobile={isMobile} />}
+      {!isLoading && !error && (
+        <>
+          <TablePagination items={itemsPage} itemsPerPage={itemsPerPage} />
+          <TableCountries countries={countries} isMobile={isMobile} />
+        </>
+      )}
     </>
   );
 

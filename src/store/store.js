@@ -3,6 +3,7 @@ import { create } from 'zustand';
 const useCountryStore = create((set, get) => ({
   countries: [],
   filteredCountries: [],
+  country: {},
   isLoading: true,
   error: null,
   sortSelected: 'population',
@@ -10,6 +11,7 @@ const useCountryStore = create((set, get) => ({
   allRegions: ['Americas', 'Antarctic', 'Africa', 'Asia', 'Europe', 'Oceania'],
   filterRegions: [],
   filterStatus: [],
+  filterSearch: '',
 
   setCountries: (data) =>
     set({
@@ -21,21 +23,42 @@ const useCountryStore = create((set, get) => ({
 
   setError: (error) => set({ error, isLoading: false }),
 
-  _applyFilters: () => {
-    const { countries, filterRegions, filterStatus, sortSelected } = get();
+  setCountry: (name) => {
+    const country = get().countries.find(country => country.translations.spa.common === name);
+    set({ country: get()._mapCountryDetail(country) });
+  },
 
+  _applyFilters: () => {
+    const { countries, filterRegions, filterStatus, filterSearch, sortSelected } = get();
+
+    // Aplicamos el filtro por regiones si hubiera alguna marcada
     let filtered = filterRegions.length
       ? countries.filter((country) => filterRegions.includes(country.region))
       : countries;
 
+    // Aplicamos el filtro de status si hubiera alguno marcado
     if (filterStatus.length) {
-      filtered = filtered.filter((country) =>
+      const newFiltered = filtered.filter((country) =>
         filterStatus.some((key) => {
           if (key === 'independent') return country.independent;
           if (key === 'unitedNation') return country.unMember;
           return false;
         })
       );
+      filtered = newFiltered;
+    }
+
+    // Aplicamos el filtro búsqueda por texto si existiera. [Texto > 2 caracteres]
+    if(filterSearch.length > 2) {
+      const filterText = get().filterSearch.toLowerCase();
+      const newFiltered = filtered.filter(country => 
+        country.translations?.spa?.common.toLowerCase().includes(filterText) ||
+        country.region?.toLowerCase().includes(filterText) ||
+        country.subregion?.toLowerCase().includes(filterText)
+      )
+      filtered = newFiltered;
+    } else {
+      filtered = filtered;
     }
 
     set({
@@ -51,10 +74,45 @@ const useCountryStore = create((set, get) => ({
       population: country.population ?? 0,
       area: country.area ?? 0,
       region: country.region ?? '',
+      subregion: country.subregion ?? '',
       independent: country.independent ?? false,
       unMember: country.unMember ?? false,
     }));
     return mapListContries;
+  },
+
+  _mapCountryDetail: (country) => {
+    return {
+      flag: country.flag ?? '',
+      flagImg: country.flags?.png ?? '',
+      flagDescription: country.flags?.alt ?? '',
+      name: country.translations?.spa?.common ?? country.name?.common ?? '',
+      nameOfficial: country.translations?.spa?.official ?? country.name?.official ?? '',
+      population: country.population ?? 0,
+      area: country.area ?? 0,
+      region: country.region ?? '',
+      subregion: country.subregion ?? '',
+      capital: country.capital?.[0] ?? "N/A",
+      continents: country.continents?.[0] ?? '',
+      timezones: country.timezones?.[0] ?? '',
+      currency: Object.values(country.currencies ?? {})[0]?.name ?? '',
+      currencySymbol: Object.values(country.currencies ?? {})[0]?.symbol ?? '',
+      drivingSide: country.car?.side ?? '',
+      domain: country.tld?.[0] ?? '',
+      phoneCode: country.idd?.root + (country.idd?.suffixes?.[0] ?? ''),
+      independent: country.independent ?? false,
+      unMember: country.unMember ?? false,
+      languages: country.languages ?? [],
+      latlng: country.latlng,
+      capitalInfo: country.capitalInfo.latlng,
+      mapGoogle: country.maps?.googleMaps ?? '',
+      mapOSM: country.maps?.openStreetMaps ?? '',
+      borders: get()._mapBordersCounty(country) ?? [],
+    }
+  },
+
+  _mapBordersCounty: (country) => {
+    return country.borders?.map(borde => get().countries.find(country => country.cca3 === borde).translations?.spa?.common ?? '');
   },
 
   filterByRegion: (regions) => {
@@ -64,6 +122,11 @@ const useCountryStore = create((set, get) => ({
 
   filterByStatus: (status) => {
     set({ filterStatus: status });
+    get()._applyFilters();
+  },
+
+  filterByText: (text) => {
+    set({ filterSearch: text });
     get()._applyFilters();
   },
 

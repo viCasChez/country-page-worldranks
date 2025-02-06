@@ -1,4 +1,5 @@
 export * from './CountryRanking'
+export * from './CountryDetail'
 export * from './Header/Header'
 export * from './Search/Search'
 export * from './Sort/SortBy'

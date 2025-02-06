@@ -32,7 +32,7 @@ export const Table = ({ countries = [], isLoading, error }) => {
 
   return (
     <>
-      <TableHeader />
+      <TableHeader isMobile={isMobile} />
       {error && <p className={`${cls.error}`}>Error: {error}</p> }
       {isLoading && <TableLoading skeletonNumbers={skeletonNumbers} isMobile={isMobile} />}
       {!isLoading && !error && (

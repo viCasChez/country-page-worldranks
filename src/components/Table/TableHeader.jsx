@@ -1,4 +1,5 @@
 import React from "react";
+import useCountryStore from '../../store/store';
 import cls from './Table.module.css';
 
 export const TableHeader = ({ isMobile }) => {
@@ -9,7 +10,7 @@ export const TableHeader = ({ isMobile }) => {
       <div>Name</div>
       <div>Population</div>
       <div>Area (km2)</div>
-      {!isMobile ? <div>Region</div> : ''}
+      {!isMobile && <div>Region</div>}
     </section>
   );
 

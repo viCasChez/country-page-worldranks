@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useCountryStore from '../../store/store';
 import cls from './Table.module.css';
 
-export const TableCountries = () => {
+export const TableCountries = ({ isMobile }) => {
   const { filteredCountries, setCountry } = useCountryStore();
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ export const TableCountries = () => {
           <div>{name}</div>
           <div>{population.toLocaleString("es-ES")}</div>
           <div>{area.toLocaleString("es-ES")}</div>
-          <div>{region}</div>
+          {!isMobile && <div>{region}</div>}
         </section>
       ))}
     </>

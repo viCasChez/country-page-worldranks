@@ -1,10 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import useCountryStore from '../../store/store';
 import cls from './Table.module.css';
 
-export const TableCountries = ({ isMobile }) => {
-  const { filteredCountries, setCountry } = useCountryStore();
+export const TableCountries = ({ countries, isMobile }) => {
   const navigate = useNavigate();
 
   const handleCountryClick = (name) => {
@@ -14,8 +12,8 @@ export const TableCountries = ({ isMobile }) => {
 
   return (
     <>
-      {!filteredCountries.length && <p className={`${cls.error}`}>Sin resultados...</p> }
-      {filteredCountries.map(({flag, name, population, area, region}, index) => (
+      {!countries.length && <p className={`${cls.error}`}>Sin resultados...</p> }
+      {countries.map(({flag, name, population, area, region}, index) => (
         <section
           key={index}
           onClick={() => handleCountryClick(name)}

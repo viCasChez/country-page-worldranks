@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isMobileDevice } from '../../utils/utils';
 
 import cls from './Table.module.css';
+import useCountryStore from '../../store/store';
 import { TableLoading } from './TableLoading';
 import { TableHeader } from './TableHeader';
 import { TableCountries } from './TableCountries';
@@ -9,10 +10,12 @@ import { TablePagination } from './TablePagination';
 
 export const Table = ({ countries = [], isLoading, error }) => {
 
-  const skeletonNumbers = Math.max(10 - countries.length, 0);
   const itemsPage = countries.length;
-  const itemsPerPage = 50;
+  const skeletonNumbers = Math.max(10 - itemsPage, 0);
+  const itemsPerPage = [10, 20, 50, 100];
 
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(50);
+  const { filteredCountries, currentPage, setCurrentPage } = useCountryStore();
   // Estado para detectar si es un dispositivo móvil
   const [isMobile, setIsMobile] = useState(isMobileDevice());
 
@@ -30,6 +33,10 @@ export const Table = ({ countries = [], isLoading, error }) => {
     };
   }, []);
 
+  const indexOfLastCountry = currentPage * currentItemsPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - currentItemsPerPage;
+  const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+
   return (
     <>
       <TableHeader isMobile={isMobile} />
@@ -37,8 +44,17 @@ export const Table = ({ countries = [], isLoading, error }) => {
       {isLoading && <TableLoading skeletonNumbers={skeletonNumbers} isMobile={isMobile} />}
       {!isLoading && !error && (
         <>
-          <TablePagination items={itemsPage} itemsPerPage={itemsPerPage} />
-          <TableCountries countries={countries} isMobile={isMobile} />
+          <TableCountries countries={currentCountries} isMobile={isMobile} />
+          <TablePagination
+            items={itemsPage}
+            itemsPerPage={itemsPerPage}
+            currentItemsPerPage={currentItemsPerPage}
+            setCurrentItemsPerPage={setCurrentItemsPerPage}
+            currentPage={currentPage}
+            firstItem={ indexOfFirstCountry + 1}
+            lastItem={ indexOfLastCountry }
+            setCurrentPage={setCurrentPage}
+          />
         </>
       )}
     </>

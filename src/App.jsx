@@ -4,7 +4,7 @@ import { CountryRanking, CountryDetail } from "./components";
 
 function App() {
   return (
-    <Router basename="/country-page-worldranks">
+    <Router basename="/country-page-worldranks/">
       <Routes>
         <Route path="/" element={<CountryRanking />} />
         <Route path="/country/:name" element={<CountryDetail />} />

@@ -69,6 +69,15 @@
       }
     }
   }
+  select {
+    background-color: var(--background-grey);
+    border: 1px solid var(--primary-grey);
+    color: var(--white);
+    border-radius: 4px;
+    margin: 8px 4px;
+    min-width: 24px;
+    height: 24px;
+  }
   .items_of_total { margin-left: 16px;}
 }
 

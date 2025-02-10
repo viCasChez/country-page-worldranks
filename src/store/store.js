@@ -3,6 +3,7 @@ import { create } from 'zustand';
 const useCountryStore = create((set, get) => ({
   countries: [],
   filteredCountries: [],
+  currentPage: 1,
   country: {},
   isLoading: true,
   error: null,
@@ -22,6 +23,10 @@ const useCountryStore = create((set, get) => ({
     }),
 
   setError: (error) => set({ error, isLoading: false }),
+
+  setCurrentPage: (page) => {
+    set({ currentPage: page })
+  },
 
   setCountry: (name) => {
     const country = get().countries.find(country => country.translations.spa.common === name);
@@ -64,6 +69,7 @@ const useCountryStore = create((set, get) => ({
     set({
       filteredCountries: get()._sortData(get()._mapToListCountries(filtered), sortSelected),
       numResults: filtered.length,
+      currentPage: 1,
     });
   },
 

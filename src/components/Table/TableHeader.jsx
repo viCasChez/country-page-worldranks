@@ -1,5 +1,4 @@
 import React from "react";
-import useCountryStore from '../../store/store';
 import cls from './Table.module.css';
 
 export const TableHeader = ({ isMobile }) => {

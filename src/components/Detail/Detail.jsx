@@ -51,13 +51,13 @@ export const Detail = () => {
       <p>
         {country.name}
         {country.independent && <> es un país <b>independiente</b></> || <><b> NO</b> es un país <b>independiente</b></>} y
-        {country.independent && <> forma parte de la <b>ONU</b>. </> || <> <b>NO</b> es miembro de la <b>ONU</b>. </>}
+        {country.unMember && <> forma parte de la <b>ONU</b>. </> || <> <b>NO</b> forma parte de la <b>ONU</b>. </>}
         {country.domain && <>Su dominio de internet está representado por <b>[{country.domain}]</b>, y </>}
         {country.timezones && <>su huso horario es <b>{country.timezones}</b>. </>}
         {country.latlng && <>El país se extiende entre las coordenadas geográficas <b>[{country.latlng.join(', ')}]</b></>}
         {country.capitalInfo && <> con su capital ubicada en <b>[{country.capitalInfo?.join(', ')}]</b></>}.
       </p>
-      {country.borders.length > 0 ? (
+      {country.borders?.length > 0 ? (
         <>
           <p>Comparte frontera con:</p>
           <ul>

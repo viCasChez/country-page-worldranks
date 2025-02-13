@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCountryStore from '../store/store';
 import { Header } from './';
-import { Detail } from './CountryDetail/Detail';
+import { Detail } from './Detail/Detail';
 import cls from './CountryDetail.module.css';
 
 export const CountryDetail = () => {

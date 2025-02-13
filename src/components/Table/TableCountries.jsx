@@ -1,14 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import cls from './Table.module.css';
 
-export const TableCountries = ({ countries, isMobile }) => {
-  const navigate = useNavigate();
-
-  const handleCountryClick = (name) => {
-    setCountry(name);
-    navigate(`/country/${name}`);
-  }
+export const TableCountries = ({ countries, handleCountryClick, isMobile }) => {
 
   return (
     <>

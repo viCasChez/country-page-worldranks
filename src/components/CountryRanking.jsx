@@ -1,9 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useCountryStore from '../store/store';
 import { Header, Search, SortBy, Region, Status, Table } from './';
+import { isMobileDevice } from '../utils/utils';
 
 export const CountryRanking = () => {
-  const { setCountries, setError, isLoading, error, filteredCountries } = useCountryStore();
+  const { setCountries, setError, isLoading, error, filteredCountries, currentPage, setCurrentPage, setCountry } = useCountryStore();
+
+  const itemsPerPage = [10, 20, 50, 100];
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(50);
+  // Estado para detectar si es un dispositivo móvil
+  const [isMobile, setIsMobile] = useState(isMobileDevice());  
+
+  const navigate = useNavigate();
+
+  const handleCountryClick = (name) => {
+    setCountry(name);
+    navigate(`/country/${name}`);
+  }
+
+  // useEffect para agregar y limpiar el evento de redimensionamiento
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -32,7 +53,18 @@ export const CountryRanking = () => {
             <Status />
           </div>
           <div>
-            <Table countries={filteredCountries} isLoading={isLoading} error={error} />
+            <Table
+              data={filteredCountries}
+              isLoading={isLoading}
+              error={error}
+              itemsPerPage={itemsPerPage}
+              currentItemsPerPage={currentItemsPerPage}
+              setCurrentItemsPerPage={setCurrentItemsPerPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              isMobile={isMobile}
+              handleCountryClick={handleCountryClick}
+            />
           </div>
         </div>
       </main>

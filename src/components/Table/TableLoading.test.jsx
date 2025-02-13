@@ -17,7 +17,6 @@ describe('TableLoading Component', () => {
 
     // Verificar que solo hay 4 cajas skeleton (sin la columna de Region)
     const skeletonBoxes = document.querySelectorAll('section div');
-    console.log('Skeleton Boxes: ', skeletonBoxes.length)
     expect(skeletonBoxes.length).toBe(4); // 4 cajas porque la columna de Region no se muestra en mobile
   });
 

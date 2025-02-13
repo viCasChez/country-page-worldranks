@@ -1,38 +1,34 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, beforeEach } from 'vitest';
-import useCountryStore from '../../store/store';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Search } from './Search';
 
-const numResults = 272;
-const filterByText = vi.fn();
-let store = {
-  numResults,
-  filterByText,
-};
-
-vi.mock('../../store/store', () => ({
-  default: () => ({
-    numResults,
-    filterByText,
-  }),
+const store = vi.hoisted(() => ({
+  numResults: 272,
+  filterByText: vi.fn(),
 }));
 
-const getNumResults = () => {
-  return `Found ${store.numResults} ${store.numResults === 1 ? 'country' : 'countries'}`;
+vi.mock('../../store/store', () => ({
+  default: () => store,
+}));
+
+const getNumResults = (numResults) => {
+  return `Found ${numResults} ${numResults === 1 ? 'country' : 'countries'}`;
+};
+
+const cleanRender = () => {
+  cleanup();
+  render(<Search />);
 }
 
 describe('Search Component', () => {
-
-  let pElement = '';
-  let inputElement = 0;
+  let inputElement;
+  let pElement;
 
   beforeEach(() => {
-    store = useCountryStore();
-    render(<Search />);
+    cleanRender();
     inputElement = screen.getByPlaceholderText('Search by Name, Region, Subregion');
     pElement = screen.getByText(getNumResults(store.numResults));
   });
-  
 
   it('Render Search Component p and input', () => {
     expect(pElement).toBeInTheDocument();
@@ -40,18 +36,13 @@ describe('Search Component', () => {
   });
 
   it('Calls filterByText when input changes', () => {
-    fireEvent.change(inputElement, { target: { value: 'Spain' } });
-    expect(filterByText).toHaveBeenCalledWith('Spain');
+    fireEvent.change(inputElement, { target: { value: 'España' } });
+    expect(store.filterByText).toHaveBeenCalledWith('España');
   });
 
   it('Updates the number of found countries dynamically', () => {
-    store.numResults = 1;
-    render(<Search />);
-    console.log('Lo que se espera: ', getNumResults(store.numResults));
-    console.log('Lo que si llega: ', document.querySelector('section p').innerHTML);
-  
-    // expect(screen.getByText(getNumResults(store.numResults))).toBeInTheDocument();
+    store.numResults = 1; // Modificamos numResults del store
+    cleanRender(); // Limpiamos y volvemos a renderizar
+    expect(screen.getAllByText(getNumResults(store.numResults)));
   });
-  
 });
-
